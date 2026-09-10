@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AgreementController;
+use App\Http\Controllers\ReceiptController;
 
 Route::inertia('/', 'welcome')->name('home');
 
@@ -13,6 +14,9 @@ Route::get('/bookings/{booking}/agreement', [AgreementController::class, 'genera
     ->name('bookings.agreement')
     ->middleware(['auth']);
 
-require __DIR__.'/settings.php';
+Route::get('/bookings/{booking}/receipt', [ReceiptController::class, 'generate'])
+    ->name('bookings.receipt')
+    ->middleware(['auth']);
 
 
+require __DIR__ . '/settings.php';

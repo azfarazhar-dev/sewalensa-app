@@ -90,9 +90,17 @@ class BookingsTable
                 Action::make('view_agreement')
                     ->label('View Agreement')
                     ->icon('heroicon-o-document-text')
-                    ->color('success')
+                    ->color('warning')
                     ->url(fn($record) => route('bookings.agreement', $record))
+                    ->openUrlInNewTab(),
+
+                Action::make('view_receipt')
+                    ->label('View Receipt')
+                    ->icon('heroicon-o-document-text')
+                    ->color('info')
+                    ->url(fn($record) => route('bookings.receipt', $record))
                     ->openUrlInNewTab()
+
 
             ])
             ->toolbarActions([
