@@ -250,7 +250,7 @@
                         </tr>
                         <tr>
                             <td class="label">IC / Passport:</td>
-                            <td>{{ $booking->client->ic_number ?? 'N/A' }}</td>
+                            <td>{{ $booking->client->ic_or_passport ?? 'N/A' }}</td>
                         </tr>
                         <tr>
                             <td class="label">Address:</td>
