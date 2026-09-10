@@ -17,8 +17,7 @@ class ClientsForm
                     ->image()
                     ->maxSize(1024) // 1MB
                     ->directory('client-ic-passport-images')
-                    ->columnSpanFull()
-                    ->required(),
+                    ->columnSpanFull(),
                 TextInput::make('name')
                     ->label('Client Name')
                     ->required(),
