@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -12,15 +13,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\User::factory()->create([
-            'name' => 'Super Admin',
-            'email' => 'admin@sewalensa.com',
-            'password' => bcrypt('Admin1234'),
-        ]);
-        \App\Models\User::factory()->create([
-            'name' => 'Danial',
-            'email' => 'gartindani@gmail.com',
-            'password' => bcrypt('Danial12'),
-        ]);
+// Finds user by email; updates if exists, creates if it doesn't
+        User::updateOrCreate(
+            ['email' => 'admin@sewalensa.com'], // Search criteria
+            [
+                'name' => 'Super Admin',
+                'email' => 'admin@sewalensa.com',
+                'password' => bcrypt('Admin1234'),
+            ]
+        );
     }
 }
