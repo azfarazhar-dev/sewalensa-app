@@ -47,12 +47,12 @@ class BookingStatsOverview extends BaseWidget
             Stat::make('Active Rentals', $activeRentals)
                 ->description('Gear currently with clients')
                 ->descriptionIcon('heroicon-m-camera')
-                ->color('warning'),
+                ->color('info'),
 
             Stat::make('Pending Payments', 'RM ' . number_format($pendingPayments, 2))
                 ->description('Unpaid active bookings')
                 ->descriptionIcon('heroicon-m-clock')
-                ->color('danger'),
+                ->color('warning'),
         ];
     }
 }
