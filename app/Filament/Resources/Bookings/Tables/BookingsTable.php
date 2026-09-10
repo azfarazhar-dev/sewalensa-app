@@ -2,23 +2,25 @@
 
 namespace App\Filament\Resources\Bookings\Tables;
 
-use Dom\Text;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ViewAction;
-use Filament\Forms\Components\FileUpload;
+use Filament\Actions\Action;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class BookingsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
+            // Eager load relationships to prevent N+1 issues in table and PDF
+            ->modifyQueryUsing(fn($query) => $query->with(['client', 'item']))
             ->columns([
                 ImageColumn::make('client_images')
                     ->label('Image')
@@ -84,6 +86,14 @@ class BookingsTable
             ])
             ->recordActions([
                 EditAction::make(),
+
+                Action::make('view_agreement')
+                    ->label('View Agreement')
+                    ->icon('heroicon-o-document-text')
+                    ->color('success')
+                    ->url(fn($record) => route('bookings.agreement', $record))
+                    ->openUrlInNewTab()
+
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
