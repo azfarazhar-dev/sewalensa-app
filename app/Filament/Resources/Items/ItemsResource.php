@@ -17,12 +17,17 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Models\Item;
+use UnitEnum;
 
 class ItemsResource extends Resource
 {
     protected static ?string $model = Item::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;
+    protected static string|UnitEnum|null $navigationGroup = 'Inventory';
+
+    protected static ?string $navigationLabel = 'Gears List';
+
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCamera;
 
     public static function form(Schema $schema): Schema
     {
