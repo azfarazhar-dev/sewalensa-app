@@ -29,8 +29,7 @@ class ClientsForm
                     ->required(),
                 TextInput::make('email')
                     ->label('Email')
-                    ->email()
-                    ->required(),
+                    ->email(),
                 TextInput::make('address')
                     ->label('Address')
                     ->required(),
