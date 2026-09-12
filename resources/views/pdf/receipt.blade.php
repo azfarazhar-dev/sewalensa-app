@@ -184,10 +184,6 @@
                             <td class="label">Phone:</td>
                             <td>014-6308200</td>
                         </tr>
-                        <tr>
-                            <td class="label">Email:</td>
-                            <td>aa.azfarazhar@gmail.com</td>
-                        </tr>
                     </table>
                 </td>
 
@@ -202,10 +198,6 @@
                         <tr>
                             <td class="label">Phone:</td>
                             <td>{{ $booking->client->phone ?? 'N/A' }}</td>
-                        </tr>
-                        <tr>
-                            <td class="label">Email:</td>
-                            <td>{{ $booking->client->email ?? 'N/A' }}</td>
                         </tr>
                         <tr>
                             <td class="label">Booking Ref:</td>

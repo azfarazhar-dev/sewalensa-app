@@ -14,14 +14,12 @@ class ClientSeeder extends Seeder
                 'name' => 'Muhammad Amirul',
                 'phone' => '0123456789',
                 'ic_or_passport' => '980315105431',
-                'email' => 'amirul@example.com',
                 'address' => 'Cyberjaya, Selangor',
             ],
             [
                 'name' => 'Sarah Tan',
                 'phone' => '0198765432',
                 'ic_or_passport' => '950722145892',
-                'email' => 'sarahtan@example.com',
                 'address' => 'Petaling Jaya, Selangor',
             ],
         ];

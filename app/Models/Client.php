@@ -10,7 +10,6 @@ class Client extends Model
         'ic_or_passport_image',
         'name',
         'ic_or_passport',
-        'email',
         'phone',
         'address',
     ];

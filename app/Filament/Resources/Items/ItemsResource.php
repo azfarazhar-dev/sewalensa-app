@@ -25,7 +25,7 @@ class ItemsResource extends Resource
 
     protected static string|UnitEnum|null $navigationGroup = 'Inventory';
 
-    protected static ?string $navigationLabel = 'Gears List';
+    protected static ?string $navigationLabel = 'Item List';
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedCamera;
 

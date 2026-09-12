@@ -8,14 +8,14 @@ class Item extends Model
 {
     protected $fillable = [
         'name',
-        'category',
+        'item_category_id', // <-- Ensure this is fillable
         'daily_rate',
         'deposit_fee',
         'status',
     ];
 
-    public function bookings()
+    public function itemCategory()
     {
-        return $this->hasMany(Booking::class);
+        return $this->belongsTo(ItemCategory::class, 'item_category_id');
     }
 }

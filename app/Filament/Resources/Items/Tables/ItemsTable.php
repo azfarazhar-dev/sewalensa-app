@@ -2,13 +2,11 @@
 
 namespace App\Filament\Resources\Items\Tables;
 
-use Dom\Text;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 
@@ -22,7 +20,7 @@ class ItemsTable
                     ->label('Item Name')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('category')
+                TextColumn::make('itemCategory.name') // <-- Access category name via relationship
                     ->label('Category')
                     ->searchable()
                     ->sortable(),
@@ -44,19 +42,7 @@ class ItemsTable
                     })
                     ->searchable()
                     ->sortable(),
-            ])
-            ->filters([
-                // TrashedFilter::make(),
-            ])
-            ->recordActions([
-                EditAction::make(),
-            ])
-            ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
             ]);
+        // ... filters, actions
     }
 }

@@ -27,9 +27,6 @@ class ClientsForm
                 TextInput::make('phone')
                     ->label('Phone')
                     ->required(),
-                TextInput::make('email')
-                    ->label('Email')
-                    ->email(),
                 TextInput::make('address')
                     ->label('Address')
                     ->required(),

@@ -12,7 +12,7 @@ class ItemSeeder extends Seeder
         $items = [
             [
                 'name' => 'Canon R50',
-                'category' => 'Camera Body',
+                'item_category_id' => 1,
                 'daily_rate' => 50,
                 'deposit_fee' => 20,
                 'status' => 'available',

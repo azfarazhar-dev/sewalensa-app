@@ -12,22 +12,25 @@ class ItemsForm
     {
         return $schema
             ->components([
-                // Define form components here, e.g., TextInput, Select, etc.
                 TextInput::make('name')
                     ->label('Item Name')
                     ->required(),
+
                 TextInput::make('daily_rate')
                     ->label('Daily Rate (RM)')
                     ->required(),
-                Select::make('category')
-                    ->label('Category')
-                    ->options([
-                        'Camera Body' => 'Camera Body',
-                    ])
+
+                Select::make('item_category_id') // <-- Use foreign key column name
+                    ->label('Item Category')
+                    ->relationship('itemCategory', 'name') // <-- Filament relationship helper
+                    ->searchable()
+                    ->preload()
                     ->required(),
+
                 TextInput::make('deposit_fee')
                     ->label('Deposit Fee (RM)')
                     ->required(),
+
                 Select::make('status')
                     ->label('Status')
                     ->options([

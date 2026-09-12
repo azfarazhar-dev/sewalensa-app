@@ -35,11 +35,6 @@ class ClientsTable
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('email')
-                    ->label('Email Address')
-                    ->searchable()
-                    ->sortable(),
-
                 TextColumn::make('address')
                     ->label('Address')
                     ->limit(30)
