@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import { ChevronLeft, ChevronRight, Loader2 } from "lucide-react";
+import { Loader2, User, Camera, Calendar } from "lucide-react";
 
 interface Client {
     id: number;
@@ -16,9 +16,10 @@ interface Booking {
     id: number;
     start_date: string;
     end_date: string;
+    status?: "booked" | "blocked" | "available";
     item?: Item;
     client?: Client;
-    [key: string]: any; // Allows optional extra fields from Eloquent
+    [key: string]: any;
 }
 
 interface ProcessedBooking extends Booking {
@@ -45,17 +46,24 @@ const MONTH_NAMES = [
 const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"];
 
 export default function YearlyAvailabilityCalendar() {
-    const [year, setYear] = useState(new Date().getFullYear());
+    const today = useMemo(() => new Date(), []);
+    const year = today.getFullYear();
+    const currentMonthIndex = today.getMonth();
+
     const [bookings, setBookings] = useState<Booking[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [hoveredBooking, setHoveredBooking] = useState<{
+        booking: ProcessedBooking;
+        dateKey: string;
+    } | null>(null);
 
     useEffect(() => {
         async function fetchBookings() {
             setLoading(true);
             setError(null);
             try {
-                const response = await axios.get(`/api/bookings?year=${year}`);
+                const response = await axios.get("/api/bookings");
                 setBookings(response.data);
             } catch (err) {
                 console.error("API Fetch Error:", err);
@@ -66,7 +74,7 @@ export default function YearlyAvailabilityCalendar() {
         }
 
         fetchBookings();
-    }, [year]);
+    }, []);
 
     const formatDateKey = (y: number, mIdx: number, d: number): string => {
         const m = String(mIdx + 1).padStart(2, "0");
@@ -119,50 +127,62 @@ export default function YearlyAvailabilityCalendar() {
             const firstDayOfWeek = new Date(year, monthIndex, 1).getDay();
             const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
             return { name, monthIndex, firstDayOfWeek, daysInMonth };
-        });
-    }, [year]);
+        }).filter(({ monthIndex }) => monthIndex >= currentMonthIndex);
+    }, [year, currentMonthIndex]);
+
+    const getDayStyle = (booking?: ProcessedBooking) => {
+        if (!booking) {
+            return "bg-emerald-500 text-white hover:bg-emerald-600";
+        }
+
+        switch (booking.status?.toLowerCase()) {
+            case "blocked":
+                return "bg-slate-700 text-white";
+            case "booked":
+            default:
+                return "bg-red-600 text-white font-semibold";
+        }
+    };
 
     return (
         <div className="w-full min-h-screen mx-auto p-6 bg-white text-slate-800 antialiased">
             {/* Header */}
-            <div className="flex items-center justify-between pb-6 mb-8 border-b border-slate-100">
+            <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-slate-100 gap-4">
                 <div>
                     <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
                         SewaLensaMY
                     </h1>
                     <p className="text-sm text-slate-500 mt-1">
-                        Availability Overview {year}
+                        Availability Overview ({MONTH_NAMES[currentMonthIndex]} – December {year})
                     </p>
                 </div>
 
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4 text-xs font-medium text-slate-600 bg-slate-50 px-3 py-2 rounded-lg border border-slate-200">
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
+                            <span>Available</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-red-600" />
+                            <span>Booked</span>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                            <span className="w-2.5 h-2.5 rounded-full bg-slate-700" />
+                            <span>Blocked</span>
+                        </div>
+                    </div>
+
                     {loading && (
                         <Loader2 className="w-4 h-4 animate-spin text-slate-400" />
                     )}
                     {error && (
                         <span className="text-xs text-red-500">{error}</span>
                     )}
-                    <div className="flex items-center gap-1 bg-slate-50 p-1 rounded-lg border border-slate-200">
-                        {/* <button
-              onClick={() => setYear((y) => y - 1)}
-              className="p-1.5 hover:bg-white rounded-md transition text-slate-600 shadow-xs"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button> */}
-                        <span className="px-3 text-sm font-semibold text-slate-800">
-                            {year}
-                        </span>
-                        {/* <button
-              onClick={() => setYear((y) => y + 1)}
-              className="p-1.5 hover:bg-white rounded-md transition text-slate-600 shadow-xs"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button> */}
-                    </div>
                 </div>
             </div>
 
-            {/* Grid */}
+            {/* Calendar Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-10">
                 {monthsData.map(
                     ({ name, monthIndex, firstDayOfWeek, daysInMonth }) => (
@@ -181,7 +201,7 @@ export default function YearlyAvailabilityCalendar() {
                                 ))}
                             </div>
 
-                            <div className="grid grid-cols-7 text-center">
+                            <div className="grid grid-cols-7 text-center gap-0.5">
                                 {Array.from({ length: firstDayOfWeek }).map(
                                     (_, i) => (
                                         <div
@@ -200,43 +220,52 @@ export default function YearlyAvailabilityCalendar() {
                                             dayNumber
                                         );
                                         const booking = bookingMap.get(dateKey);
-
-                                        if (!booking) {
-                                            return (
-                                                <div
-                                                    key={dateKey}
-                                                    className="h-8 flex items-center justify-center text-[11px] text-slate-600 hover:bg-slate-100 rounded"
-                                                >
-                                                    {dayNumber}
-                                                </div>
-                                            );
-                                        }
-
-                                        const {
-                                            isStart,
-                                            isEnd,
-                                            isSingleDay,
-                                            item,
-                                            client,
-                                        } = booking;
-                                        let rounded = "";
-                                        if (isSingleDay) rounded = "rounded-md";
-                                        else if (isStart)
-                                            rounded = "rounded-l-md";
-                                        else if (isEnd)
-                                            rounded = "rounded-r-md";
+                                        const styleClass = getDayStyle(booking);
 
                                         return (
                                             <div
                                                 key={dateKey}
-                                                title={`${
-                                                    item?.name || "Booking"
-                                                } - ${
-                                                    client?.name || "Client"
-                                                }`}
-                                                className={`h-8 flex items-center justify-center text-[11px] font-semibold text-white bg-red-600 ${rounded}`}
+                                                onMouseEnter={() => {
+                                                    if (booking) {
+                                                        setHoveredBooking({
+                                                            booking,
+                                                            dateKey,
+                                                        });
+                                                    }
+                                                }}
+                                                onMouseLeave={() => setHoveredBooking(null)}
+                                                className={`group relative h-8 flex items-center justify-center text-[11px] rounded transition-colors cursor-pointer ${styleClass}`}
                                             >
                                                 {dayNumber}
+
+                                                {/* Tooltip Card on Hover */}
+                                                {booking && (
+                                                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:flex flex-col w-50 p-3 bg-slate-900 text-white rounded-lg text-xs shadow-xl z-50 pointer-events-none">
+                                                        <div className="flex items-center gap-1.5 font-semibold text-slate-400 border-b border-slate-700 pb-1 mb-1.5">
+                                                            <User className="w-3.5 h-3.5 shrink-0" />
+                                                            <span className="truncate">
+                                                                {booking.client?.name || "N/A Client"}
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="flex items-center gap-1.5 text-slate-400 mb-1">
+                                                            <Camera className="w-3 h-3 shrink-0 text-slate-400" />
+                                                            <span className="truncate text-[11px]">
+                                                                {booking.item?.name || "Equipment"}
+                                                            </span>
+                                                        </div>
+
+                                                        <div className="flex items-center gap-1.5 text-slate-400 text-[11px]">
+                                                            <Calendar className="w-3 h-3 shrink-0" />
+                                                            <span>
+                                                                {booking.start_date} → {booking.end_date}
+                                                            </span>
+                                                        </div>
+
+                                                        {/* Tooltip Arrow */}
+                                                        <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-slate-900" />
+                                                    </div>
+                                                )}
                                             </div>
                                         );
                                     }

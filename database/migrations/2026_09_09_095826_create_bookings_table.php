@@ -12,9 +12,8 @@ return new class extends Migration
 
             $table->id();
             $table->string('client_images')->nullable(); // For identity verification
-            $table->foreignId('client_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('item_id')->constrained()->cascadeOnDelete();
-
+            $table->foreignId('client_id')->constrained()->cascadeOnDelete()->onDelete('cascade');
+            $table->foreignId('item_id');
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('total_days');
@@ -28,6 +27,8 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->timestamps();
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     public function down(): void
