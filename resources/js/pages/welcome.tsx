@@ -150,7 +150,7 @@ export default function YearlyAvailabilityCalendar() {
             <div className="flex flex-col md:flex-row md:items-center justify-between pb-6 mb-8 border-b border-slate-100 gap-4">
                 <div>
                     <h1 className="text-2xl font-semibold tracking-tight text-slate-900">
-                        SewaLensaMY
+                        SewaLensaMY {year}
                     </h1>
                     <p className="text-sm text-slate-500 mt-1">
                         Availability Overview ({MONTH_NAMES[currentMonthIndex]} – December {year})
