@@ -17,7 +17,7 @@ export default function Header() {
                 {/* Desktop Navigation Links */}
                 <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
                     <Link
-                        href="/"
+                        href="/calendar"
                         className="flex items-center gap-1.5 transition-colors hover:text-[#c90001]"
                     >
                         <Calendar className="w-4 h-4" />

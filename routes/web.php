@@ -10,6 +10,11 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('welcome');
 
+// Calendar page
+Route::get('/calendar', function () {
+    return Inertia::render('calendar');
+})->name('calendar');
+
 // FAQ Page
 Route::get('/faq', function () {
     return Inertia::render('faq');
