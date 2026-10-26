@@ -12,7 +12,7 @@ void createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
     layout: (name) => {
         switch (true) {
-            case name === 'welcome' || name === 'faq':
+            case name === 'welcome' || name === 'availabilityCalendar':
                 return null; // PublicLayout is rendered directly inside welcome.tsx & faq.tsx
             case name.startsWith('auth/'):
                 return AuthLayout;

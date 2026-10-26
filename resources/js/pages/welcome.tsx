@@ -1,31 +1,29 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
+import PublicLayout from "@/layouts/public-layout";
 import {
     ArrowRight,
-    Camera,
-    Check,
     ChevronRight,
-    Clock3,
-    Menu,
     MapPin,
     ShieldCheck,
-    Star,
-    X,
-    MessageCircle,
-    Sparkles,
-    Zap,
     Calendar,
-    Layers,
-    HelpCircle,
-    Sliders,
-    Battery,
-    Lightbulb,
-    Disc,
+    Star,
+    Zap,
+    Truck,
+    FileText,
+    IdCard,
+    UserCheck,
+    CheckCircle2,
+    AlertCircle,
+    Calculator,
+    Info,
+    Minus,
+    Plus,
 } from "lucide-react";
 
 const BRAND = "#c90001";
 
-const fadeUp = {
+const fadeUp: Variants = {
     hidden: { opacity: 0, y: 16 },
     visible: {
         opacity: 1,
@@ -34,7 +32,7 @@ const fadeUp = {
     },
 };
 
-const stagger = {
+const stagger: Variants = {
     hidden: {},
     visible: { transition: { staggerChildren: 0.06 } },
 };
@@ -52,138 +50,285 @@ export default function SewaLensaRedMinimalLanding() {
 
     const faqs = [
         {
+            q: "What are the booking rates and security deposit terms?",
+            a: (
+                <div className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div className="p-3.5 rounded-xl bg-neutral-50/80 border border-neutral-200/80 flex items-start gap-3">
+                            <div className="p-2 rounded-lg bg-rose-50 text-[#c90001] shrink-0">
+                                <Calendar className="w-4 h-4" />
+                            </div>
+
+                            <div>
+                                <span className="text-[10px] font-bold uppercase tracking-wide text-neutral-400 block mb-0.5">
+                                    Booking Fee
+                                </span>
+
+                                <p className="text-sm font-extrabold text-[#141414]">
+                                    RM20{" "}
+                                    <span className="text-xs font-normal text-neutral-500">
+                                        / day
+                                    </span>
+                                </p>
+
+                                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-rose-600 mt-1">
+                                    <AlertCircle className="w-3 h-3" />
+                                    Based on rental days
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="p-3.5 rounded-xl bg-neutral-50/80 border border-neutral-200/80 flex items-start gap-3">
+                            <div className="p-2 rounded-lg bg-emerald-50 text-emerald-600 shrink-0">
+                                <ShieldCheck className="w-4 h-4" />
+                            </div>
+
+                            <div>
+                                <span className="text-[10px] font-bold uppercase tracking-wide text-neutral-400 block mb-0.5">
+                                    Security Deposit
+                                </span>
+
+                                <p className="text-sm font-extrabold text-[#141414]">
+                                    RM100
+                                </p>
+
+                                <span className="inline-flex items-center gap-1 text-[10px] font-semibold text-emerald-600 mt-1">
+                                    <CheckCircle2 className="w-3 h-3" />
+                                    Fully refundable
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="rounded-xl bg-neutral-50 border border-neutral-200 px-3.5 py-3">
+                        <div className="flex items-start gap-2.5">
+                            <Info className="w-3.5 h-3.5 text-neutral-400 shrink-0 mt-0.5" />
+
+                            <p className="text-xs text-neutral-500 leading-relaxed">
+                                A booking fee of{" "}
+                                <strong className="text-[#141414]">
+                                    RM20 per rental day
+                                </strong>{" "}
+                                is required to lock your date. This fee will be
+                                deducted from your total rental fee. The
+                                remaining balance and{" "}
+                                <strong className="text-[#141414]">
+                                    RM100 security deposit
+                                </strong>{" "}
+                                are paid upon camera pickup.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            q: "When and how is the rental payment calculated?",
+            a: (
+                <div className="space-y-3">
+                    <p className="text-xs text-neutral-600 leading-relaxed">
+                        Your booking fee is calculated based on the number of
+                        rental days. The amount paid to secure your booking is
+                        then{" "}
+                        <strong className="text-[#141414]">
+                            deducted from the total rental fee
+                        </strong>
+                        .
+                    </p>
+
+                    <div className="p-3.5 rounded-xl bg-neutral-900 text-neutral-100 space-y-3">
+                        <div className="flex items-center gap-2">
+                            <div className="p-1.5 rounded-md bg-neutral-800">
+                                <Calculator className="w-3.5 h-3.5 text-[#c90001]" />
+                            </div>
+
+                            <span className="text-[10px] font-semibold tracking-wide uppercase text-neutral-400">
+                                Payment Breakdown
+                            </span>
+                        </div>
+
+                        <div className="space-y-2 text-[11px]">
+                            <div className="flex items-center justify-between gap-3">
+                                <span className="text-neutral-400">
+                                    Booking fee
+                                </span>
+                                <span className="font-semibold text-white">
+                                    RM20 × Days
+                                </span>
+                            </div>
+
+                            <div className="flex items-center justify-between gap-3">
+                                <span className="text-neutral-400">
+                                    Total rental
+                                </span>
+                                <span className="font-semibold text-white">
+                                    Daily Rate × Days
+                                </span>
+                            </div>
+
+                            <div className="h-px bg-neutral-800" />
+
+                            <div className="flex items-center justify-between gap-3">
+                                <span className="text-neutral-300 font-medium">
+                                    Balance at pickup
+                                </span>
+                                <span className="font-bold text-white">
+                                    Rental Total − Booking Fee
+                                </span>
+                            </div>
+
+                            <div className="flex items-center justify-between gap-3 pt-1">
+                                <span className="text-neutral-400">
+                                    Security deposit
+                                </span>
+                                <span className="font-semibold text-emerald-400">
+                                    + RM100 refundable
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="rounded-lg bg-neutral-50 border border-neutral-200 px-3 py-2.5">
+                        <p className="text-[11px] text-neutral-500 leading-relaxed">
+                            <strong className="text-[#141414]">Example:</strong>{" "}
+                            For a 2-day rental, the booking fee is RM40 (RM20 ×
+                            2 days). The RM40 is deducted from your total rental
+                            fee, while the RM100 security deposit is paid
+                            separately at pickup.
+                        </p>
+                    </div>
+                </div>
+            ),
+        },
+        {
+            q: "What are the delivery charges and pickup locations?",
+            a: (
+                <div className="grid grid-cols-1 gap-2">
+                    <div className="p-3 rounded-xl border border-neutral-200/80 bg-neutral-50/60 flex items-start gap-3">
+                        <div className="p-1.5 rounded-lg bg-rose-50 text-[#c90001] shrink-0 mt-0.5">
+                            <Truck className="w-4 h-4" />
+                        </div>
+                        <div>
+                            <strong className="text-xs font-bold text-[#141414] block mb-0.5">
+                                Delivery Service (optional)
+                            </strong>
+                            <p className="text-xs text-neutral-600">
+                                RM0.70 per KM distance{" "}
+                                <span className="text-neutral-400">
+                                    (calculated per individual trip)
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl border border-emerald-200/80 bg-emerald-50/30 flex items-start gap-3">
+                        <div className="p-1.5 rounded-lg bg-emerald-100/60 text-emerald-700 shrink-0 mt-0.5">
+                            <CheckCircle2 className="w-4 h-4" />
+                        </div>
+                        <div>
+                            <strong className="text-xs font-bold text-emerald-950 block mb-0.5">
+                                Complimentary Self Pickup & Return
+                            </strong>
+                            <p className="text-xs text-emerald-900/80">
+                                Free self-collection available exclusively at{" "}
+                                <span className="font-semibold underline underline-offset-2">
+                                    Bandar Serenia, Sepang
+                                </span>
+                                .
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            ),
+        },
+        {
             q: "Where is the pickup and return location?",
             a: "Pickup and return are conveniently located at Bandar Serenia, Sepang — just 10-15 minutes away from KLIA 1/2, Cyberjaya, and Nilai.",
         },
         {
-            q: "Are there any hidden security deposits required?",
-            a: "No hidden deposit fees! Booking verification is handled straight through a quick IC/ID verification step on WhatsApp.",
-        },
-        {
             q: "What is included in the basic Canon EOS R50 kit?",
-            a: "The standard package includes the Canon EOS R50 body, 15-45mm STM kit lens, 1x high-speed SD card, 1x original battery, battery charger, and a protective camera bag.",
+            a: (
+                <div className="space-y-2.5">
+                    <p className="text-xs text-neutral-600">
+                        Every standard camera rental package comes fully loaded:
+                    </p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div className="flex items-center gap-2 p-2.5 rounded-lg border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#c90001]" />{" "}
+                            Canon EOS R50 Body
+                        </div>
+                        <div className="flex items-center gap-2 p-2.5 rounded-lg border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#c90001]" />{" "}
+                            15-45mm STM Kit Lens
+                        </div>
+                        <div className="flex items-center gap-2 p-2.5 rounded-lg border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#c90001]" />{" "}
+                            1x High-speed SD Card
+                        </div>
+                        <div className="flex items-center gap-2 p-2.5 rounded-lg border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#c90001]" />{" "}
+                            1x Battery & Charger
+                        </div>
+                        <div className="flex items-center gap-2 p-2.5 rounded-lg border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800 sm:col-span-2">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#c90001]" />{" "}
+                            Protective Camera Bag
+                        </div>
+                    </div>
+                </div>
+            ),
         },
         {
             q: "Can I transfer photos directly to my smartphone?",
             a: "Yes! The camera features built-in Wi-Fi and Bluetooth. Simply download the Canon Camera Connect app on iOS or Android for instant wireless photo transfer.",
         },
+        {
+            q: "What documents are required to rent equipment?",
+            a: (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div className="flex items-center gap-2.5 p-3 rounded-xl border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800">
+                        <FileText className="w-4 h-4 text-[#c90001]" /> Rental
+                        Agreement Form
+                    </div>
+                    <div className="flex items-center gap-2.5 p-3 rounded-xl border border-neutral-200 bg-neutral-50 text-xs font-semibold text-neutral-800">
+                        <IdCard className="w-4 h-4 text-[#c90001]" /> Copy of
+                        Identification Card (IC)
+                    </div>
+                </div>
+            ),
+        },
+        {
+            q: "What are the identity verification rules at pickup?",
+            a: (
+                <div className="space-y-2 text-xs text-neutral-600">
+                    <div className="flex items-start gap-2 p-2.5 rounded-lg bg-neutral-50 border border-neutral-200">
+                        <UserCheck className="w-4 h-4 text-[#c90001] shrink-0 mt-0.5" />
+                        <span>
+                            Self-collection is compulsory. Only the registered
+                            individual may collect equipment.
+                        </span>
+                    </div>
+                    <div className="flex items-start gap-2 p-2.5 rounded-lg bg-neutral-50 border border-neutral-200">
+                        <IdCard className="w-4 h-4 text-[#c90001] shrink-0 mt-0.5" />
+                        <span>
+                            Physical IC presentation is mandatory upon pickup
+                            for identity matching.
+                        </span>
+                    </div>
+                    <div className="flex items-start gap-2 p-2.5 rounded-lg bg-neutral-50 border border-neutral-200">
+                        <ShieldCheck className="w-4 h-4 text-[#c90001] shrink-0 mt-0.5" />
+                        <span>
+                            A photo verification holding your physical IC will
+                            be conducted on-site.
+                        </span>
+                    </div>
+                </div>
+            ),
+        },
     ];
 
     return (
-        <main className="min-h-screen bg-[#faf9f6] font-['Plus_Jakarta_Sans',_'Manrope',_sans-serif] text-[#141414] antialiased selection:bg-[#c90001] selection:text-white">
-            {/* Import Plus Jakarta Sans Font */}
-            <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-      `}</style>
-
-            {/* =========================================================
-          NAVBAR
-      ========================================================== */}
-            <header className="fixed inset-x-0 top-0 z-50 pt-4 px-4 sm:px-8 lg:px-12">
-                <div className="mx-auto max-w-6xl">
-                    <nav className="border border-neutral-200/80 bg-white/85 px-5 py-3 shadow-[0_2px_15px_rgba(0,0,0,0.02)] backdrop-blur-md rounded-2xl flex items-center justify-between">
-                        {/* Logo */}
-                        <a href="#" className="flex items-center gap-2.5 group">
-                            {/* <div
-                                className="flex h-8 w-8 items-center justify-center rounded-xl transition-transform group-hover:scale-105"
-                                style={{ backgroundColor: BRAND }}
-                            >
-                                <Camera size={16} className="text-white" />
-                            </div> */}
-                            <div className="flex flex-col">
-                                <span className="text-xl font-extrabold tracking-tight leading-none text-[#141414]">
-                                    SewaLensa
-                                    <span style={{ color: BRAND }}>MY</span>
-                                </span>
-                                {/* <span className="text-[8px] font-semibold uppercase tracking-[0.2em] text-neutral-400 mt-0.5">
-                                    Camera Rental · Sepang
-                                </span> */}
-                            </div>
-                        </a>
-
-                        {/* Desktop Links */}
-                        <div className="hidden items-center gap-8 md:flex">
-                            {[
-                                ["Availability", "#availability"],
-                                ["Add-ons", "#addons"],
-                                ["Process", "#process"],
-                                ["Reviews", "#reviews"],
-                                ["FAQ", "#faq"],
-                            ].map(([label, href]) => (
-                                <a
-                                    key={label}
-                                    href={href}
-                                    className="text-xs font-semibold text-neutral-600 transition-colors hover:text-black"
-                                >
-                                    {label}
-                                </a>
-                            ))}
-                        </div>
-
-                        {/* Desktop Action Button */}
-                        <div className="hidden md:flex items-center gap-3">
-                            <button
-                                onClick={handleWhatsApp}
-                                className="inline-flex items-center gap-2 px-4.5 py-2 text-xs font-bold text-white transition-all rounded-full shadow-2xs active:scale-95 hover:opacity-90"
-                                style={{ backgroundColor: BRAND }}
-                            >
-                                Book via WhatsApp
-                                <ArrowRight size={13} />
-                            </button>
-                        </div>
-
-                        {/* Mobile Toggle Button */}
-                        <button
-                            onClick={() => setMobileMenu(!mobileMenu)}
-                            className="flex h-8 w-8 items-center justify-center rounded-lg border border-neutral-200 bg-white md:hidden text-neutral-800"
-                            aria-label="Toggle Navigation"
-                        >
-                            {mobileMenu ? <X size={16} /> : <Menu size={16} />}
-                        </button>
-                    </nav>
-
-                    {/* Mobile Navigation Dropdown */}
-                    {mobileMenu && (
-                        <motion.div
-                            initial={{ opacity: 0, y: -8 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mt-2 border border-neutral-200 bg-white p-5 shadow-xl rounded-2xl md:hidden"
-                        >
-                            <div className="flex flex-col gap-3">
-                                {[
-                                    ["Availability", "#availability"],
-                                    ["Add-ons", "#addons"],
-                                    ["Process", "#process"],
-                                    ["Reviews", "#reviews"],
-                                    ["FAQ", "#faq"],
-                                ].map(([label, href]) => (
-                                    <a
-                                        key={label}
-                                        href={href}
-                                        onClick={() => setMobileMenu(false)}
-                                        className="text-xs font-semibold text-neutral-700 py-1 border-b border-neutral-100"
-                                    >
-                                        {label}
-                                    </a>
-                                ))}
-
-                                <button
-                                    onClick={handleWhatsApp}
-                                    className="mt-2 flex items-center justify-center gap-2 py-3 text-xs font-bold text-white rounded-xl shadow-2xs"
-                                    style={{ backgroundColor: BRAND }}
-                                >
-                                    <MessageCircle size={15} />
-                                    Book via WhatsApp Now
-                                </button>
-                            </div>
-                        </motion.div>
-                    )}
-                </div>
-            </header>
-
-            {/* =========================================================
-          HERO SECTION (CLEAN & MINIMAL TYPOGRAPHY)
-      ========================================================== */}
+        <>
+            {/* Hero Section */}
             <section className="relative pt-36 pb-16 md:pt-44 md:pb-20 text-center px-5">
                 <div className="mx-auto max-w-3xl">
                     <motion.div
@@ -246,15 +391,15 @@ export default function SewaLensaRedMinimalLanding() {
                                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs sm:text-sm font-semibold text-white transition-all rounded-full shadow-2xs active:scale-95 hover:opacity-90"
                                 style={{ backgroundColor: BRAND }}
                             >
-                                Reserve Your Dates
+                                Book via WhatsApp
                                 <ArrowRight size={14} />
                             </button>
 
                             <a
-                                href="#process"
+                                href="/availability"
                                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-white border border-neutral-200 hover:border-neutral-300 px-6 py-3.5 text-xs sm:text-sm font-semibold text-neutral-700 transition-all rounded-full"
                             >
-                                How It Works
+                                Check Availability
                                 <ArrowRight
                                     size={14}
                                     className="text-neutral-400"
@@ -265,9 +410,7 @@ export default function SewaLensaRedMinimalLanding() {
                 </div>
             </section>
 
-            {/* =========================================================
-    STATISTICS & SELLING POINTS BAR (CLEAN & COMPACT)
-========================================================== */}
+            {/* Key Points Section */}
             <section
                 id="highlights"
                 className="bg-white border-y border-neutral-200/80 py-8 shadow-2xs"
@@ -321,9 +464,7 @@ export default function SewaLensaRedMinimalLanding() {
                 </div>
             </section>
 
-            {/* =========================================================
-          CAMERA SPECS SECTION
-      ========================================================== */}
+            {/* Highlights Section */}
             <section id="specs" className="py-20 px-5 bg-[#faf9f6]">
                 <div className="mx-auto max-w-5xl">
                     <div className="text-center max-w-xl mx-auto">
@@ -394,9 +535,7 @@ export default function SewaLensaRedMinimalLanding() {
                 </div>
             </section>
 
-            {/* =========================================================
-          ADDONS & ACCESSORIES SECTION
-      ========================================================== */}
+            {/* Add-ons Section */}
             <section
                 id="addons"
                 className="py-20 px-5 bg-white border-t border-neutral-200/80"
@@ -468,16 +607,14 @@ export default function SewaLensaRedMinimalLanding() {
                                 </p>
                             </div>
                             <span className="text-xs font-bold bg-white border border-neutral-200 text-neutral-900 px-3 py-1.5 rounded-xl shadow-2xs">
-                                +RM8
+                                +RM10
                             </span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* =========================================================
-          RENTAL PROCESS (HOW IT WORKS)
-      ========================================================== */}
+            {/* Process Section */}
             <section
                 id="process"
                 className="py-20 px-5 bg-[#faf9f6] border-t border-neutral-200/80"
@@ -538,9 +675,7 @@ export default function SewaLensaRedMinimalLanding() {
                 </div>
             </section>
 
-            {/* =========================================================
-          REVIEWS & TESTIMONIALS
-      ========================================================== */}
+            {/* Reviews Section */}
             <section
                 id="reviews"
                 className="py-20 px-5 bg-white border-t border-neutral-200/80"
@@ -591,54 +726,48 @@ export default function SewaLensaRedMinimalLanding() {
                 </div>
             </section>
 
-            {/* =========================================================
-          FAQ SECTION
-      ========================================================== */}
+            {/* FAQ Section */}
             <section
                 id="faq"
-                className="py-20 px-5 bg-[#faf9f6] border-t border-neutral-200/80"
+                className="py-24 px-5 bg-[#faf9f6] border-t border-neutral-200/80"
             >
-                <div className="mx-auto max-w-3xl">
+                <div className="mx-auto max-w-2xl">
                     <div className="text-center max-w-xl mx-auto mb-12">
                         <span
                             className="text-[10px] font-bold uppercase tracking-[0.2em]"
                             style={{ color: BRAND }}
                         >
-                            Got Questions?
+                            FAQ
                         </span>
                         <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#141414] mt-1">
-                            Frequently Asked Questions
+                            Frequently asked questions
                         </h2>
                     </div>
 
-                    <div className="space-y-3">
+                    <div className="divide-y divide-neutral-200/80 border-t border-b border-neutral-200/80">
                         {faqs.map((faq, idx) => {
                             const isOpen = activeFaq === idx;
                             return (
-                                <div
-                                    key={idx}
-                                    className="bg-white border border-neutral-200/80 rounded-2xl overflow-hidden transition-all shadow-2xs"
-                                >
+                                <div key={idx} className="py-5">
                                     <button
                                         onClick={() =>
                                             setActiveFaq(isOpen ? null : idx)
                                         }
-                                        className="w-full p-5 text-left flex items-center justify-between gap-4 font-semibold text-xs sm:text-sm text-[#141414]"
+                                        className="w-full text-left flex items-center justify-between gap-4 font-semibold text-sm sm:text-base text-[#141414] group"
                                     >
-                                        <span>{faq.q}</span>
-                                        <span
-                                            className={`transition-transform duration-300 ${
-                                                isOpen ? "rotate-180" : ""
-                                            }`}
-                                        >
-                                            <ChevronRight
-                                                size={16}
-                                                className="text-neutral-400"
-                                            />
+                                        <span className="group-hover:opacity-75 transition-opacity">
+                                            {faq.q}
+                                        </span>
+                                        <span className="p-1 rounded-full bg-neutral-200/60 text-neutral-700 transition-colors">
+                                            {isOpen ? (
+                                                <Minus size={14} />
+                                            ) : (
+                                                <Plus size={14} />
+                                            )}
                                         </span>
                                     </button>
                                     {isOpen && (
-                                        <div className="px-5 pb-5 text-xs text-neutral-500 leading-relaxed font-normal border-t border-neutral-100 pt-3">
+                                        <div className="mt-3 text-xs sm:text-sm text-neutral-500 leading-relaxed font-normal pr-8">
                                             {faq.a}
                                         </div>
                                     )}
@@ -648,51 +777,11 @@ export default function SewaLensaRedMinimalLanding() {
                     </div>
                 </div>
             </section>
-
-            {/* =========================================================
-          BOTTOM CALL TO ACTION (RED ACCENT)
-      ========================================================== */}
-            <section className="py-20 px-5 bg-[#141414] text-white text-center relative overflow-hidden">
-                <div className="mx-auto max-w-2xl relative z-10">
-                    <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">
-                        Limited Weekly Slots
-                    </span>
-                    <h2 className="text-2xl sm:text-4xl font-bold tracking-tight mt-2">
-                        Ready to capture your moment?
-                    </h2>
-                    <p className="mt-3 text-neutral-400 text-xs sm:text-sm font-normal leading-relaxed max-w-md mx-auto">
-                        Check live calendar availability instantly over WhatsApp
-                        and lock in your camera kit.
-                    </p>
-
-                    <button
-                        onClick={handleWhatsApp}
-                        className="mt-8 inline-flex items-center gap-2.5 px-8 py-4 text-xs sm:text-sm font-semibold text-white transition-all rounded-full shadow-lg active:scale-95 hover:opacity-90"
-                        style={{ backgroundColor: BRAND }}
-                    >
-                        <MessageCircle size={18} />
-                        Chat via WhatsApp Now
-                    </button>
-                </div>
-            </section>
-
-            {/* =========================================================
-          FOOTER
-      ========================================================== */}
-            <footer className="py-8 px-5 bg-white border-t border-neutral-200">
-                <div className="mx-auto max-w-5xl flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-medium text-neutral-500">
-                    <div className="flex items-center gap-2">
-                        <span className="font-bold text-[#141414]">
-                            SewaLensa<span style={{ color: BRAND }}>MY</span>
-                        </span>
-                    </div>
-
-                    <p>
-                        © {new Date().getFullYear()} SewaLensaMY. All rights
-                        reserved.
-                    </p>
-                </div>
-            </footer>
-        </main>
+        </>
     );
 }
+
+// Attach the persistent layout so Header and Footer render automatically
+SewaLensaRedMinimalLanding.layout = (page: React.ReactNode) => (
+    <PublicLayout>{page}</PublicLayout>
+);
