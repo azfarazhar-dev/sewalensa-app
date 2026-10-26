@@ -10,6 +10,8 @@ Route::get('/', function () {
     return Inertia::render('welcome');
 })->name('welcome');
 
+Route::inertia('/availability', 'availabilityCalendar');
+
 // FAQ Page
 Route::get('/faq', function () {
     return Inertia::render('faq');
