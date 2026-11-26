@@ -5,10 +5,7 @@ const BRAND = "#c90001";
 
 export default function Footer() {
     const handleWhatsApp = () => {
-        const text = encodeURIComponent(
-            "Hi SewaLensaMY! I would like to check availability for renting the Canon EOS R50.",
-        );
-        window.open(`https://wa.me/60146308200?text=${text}`, "_blank");
+        window.open(`https://linktr.ee/sewalensa.my`, "_blank");
     };
 
     return (
@@ -35,7 +32,7 @@ export default function Footer() {
                             style={{ backgroundColor: BRAND }}
                         >
                             <MessageCircle size={16} />
-                            Book via WhatsApp Now
+                            Book Your Spot
                         </button>
 
                         {/* Secondary Action Button (Styled for Dark Background) */}

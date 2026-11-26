@@ -42,10 +42,7 @@ export default function SewaLensaRedMinimalLanding() {
     const [activeFaq, setActiveFaq] = useState<number | null>(0);
 
     const handleWhatsApp = () => {
-        const text = encodeURIComponent(
-            "Hi SewaLensaMY! I would like to check availability for renting the Canon EOS R50.",
-        );
-        window.open(`https://wa.me/60146308200?text=${text}`, "_blank");
+        window.open(`https://linktr.ee/sewalensa.my`, "_blank");
     };
 
     const faqs = [
@@ -391,7 +388,7 @@ export default function SewaLensaRedMinimalLanding() {
                                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs sm:text-sm font-semibold text-white transition-all rounded-full shadow-2xs active:scale-95 hover:opacity-90"
                                 style={{ backgroundColor: BRAND }}
                             >
-                                Book via WhatsApp
+                                Book Your Spot
                                 <ArrowRight size={14} />
                             </button>
 
