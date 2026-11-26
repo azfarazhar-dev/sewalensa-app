@@ -14,10 +14,7 @@ export default function CalendarLayout({
     const [mobileMenu, setMobileMenu] = useState(false);
 
     const handleWhatsApp = () => {
-        const text = encodeURIComponent(
-            "Hi SewaLensaMY! I would like to check availability for renting the Canon EOS R50.",
-        );
-        window.open(`https://wa.me/60146308200?text=${text}`, "_blank");
+        window.open("https://linktr.ee/sewalensa.my", "_blank");
     };
 
     return (
@@ -52,7 +49,7 @@ export default function CalendarLayout({
                                 className="inline-flex items-center gap-2 px-4.5 py-2 text-xs font-bold text-white transition-all rounded-full shadow-2xs active:scale-95 hover:opacity-90"
                                 style={{ backgroundColor: BRAND }}
                             >
-                                Book via WhatsApp
+                                Book Your Spot
                                 <ArrowRight size={13} />
                             </button>
                         </div>
